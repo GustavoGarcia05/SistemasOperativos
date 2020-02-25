@@ -5,8 +5,7 @@
  */
 package Modelo;
 
-import javax.print.DocFlavor;
-import javax.swing.JTable;
+import Logica.Nodo;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,17 +17,16 @@ public class ModeloTabla extends DefaultTableModel {
     private String[] columnas = {"Proceso", "T. Llegada", "T. Rafaga", "T. Comienzo", "T. Final", "T. Retorno", "T. Espera"};
 
     public ModeloTabla() {
-       
         for (int i = 0; i < columnas.length; i++) {
             addColumn(columnas[i]);
         }
 
-        String[] datos = {"a", "1", "0", "3", "2", "4", "6"};
-        
-        for (int i = 0; i < 100; i++) {
-            addRow(datos);
-        }
 
+    }
+    
+    public void agregarFila(Nodo n){
+        String[] datos= {n.nombre, n.tLlegada+"",n.tRafaga+"",n.tComienzo+"",n.tFinal+"",n.tRetorno+"",n.tEspera+""};
+        addRow(datos);
     }
 
 }

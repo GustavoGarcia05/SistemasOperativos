@@ -5,7 +5,10 @@
  */
 package Controlador;
 
-import Modelo.Cola;
+import Logica.Cola;
+import Logica.Nodo;
+import Modelo.GestorProcesos;
+import Modelo.ModeloTabla;
 import Vista.Ventana;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +19,11 @@ import java.awt.event.ActionListener;
  */
 public class Control implements ActionListener{
     private Ventana v;
-
+    private GestorProcesos gestor;
     
     public Control(Ventana v) {
         this.v=v;
+        gestor = new GestorProcesos();
     }
     
     
@@ -29,11 +33,13 @@ public class Control implements ActionListener{
         
        if(e.getSource()==v.getBtnRegistrar()){
            
-           v.getJtfProceso().setText("");
-           v.getJtfEspera().setText("");
-           v.getJtfRafaga().setText("");
-                  
+           gestor.agregarProceso(v);
+           Nodo aAgregar =gestor.getProcesos().obtenerUltimo();
+           v.obtenerModeloTabla().agregarFila(aAgregar);
+           v.limpiarCampos();
+
        }
     }
+  
     
 }

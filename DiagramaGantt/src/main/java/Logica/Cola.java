@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Logica;
 
 /**
  *
@@ -45,6 +45,28 @@ public class Cola {
             return null;
         } else {
             return cabecera;
+        }
+    }
+    
+    public Nodo obtenerUltimo(){
+        if(ultimo==null){
+            return null;
+        }else{
+            return ultimo;
+        }
+    }
+    public int tamanio(){
+        if(estaVacia()){
+            return 0;
+        }else{
+            int i=1;
+            Nodo aux = new Nodo("aux", i, i);
+            aux = cabecera;
+            while(aux!=null && aux.siguiente!=null){
+                i++;
+                aux=aux.siguiente;
+            }
+            return i;
         }
     }
 

@@ -115,20 +115,29 @@ public class Ventana extends JFrame implements Runnable {
     
     private void inicializarTabla(){
         tabla = new JTable(new ModeloTabla());
-        
         JScrollPane scroll= new JScrollPane(tabla);
         panelTabla.add(scroll);
     }
-
+   
+    public ModeloTabla obtenerModeloTabla(){
+        return (ModeloTabla) tabla.getModel();
+    }
     private Dimension dimensionPantalla() {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         return d;
+    }
+    
+    public void limpiarCampos(){
+        jtfProceso.setText("");
+        jtfRafaga.setText("");
+        jtfEspera.setText("");
     }
 
     @Override
     public void run() {
         while (true) {
              actualizarTamanioPaneles();
+             
         }
     }
 
@@ -147,5 +156,7 @@ public class Ventana extends JFrame implements Runnable {
     public JButton getBtnRegistrar() {
         return btnRegistrar;
     }
+
+
     
 }
