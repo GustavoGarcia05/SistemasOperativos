@@ -40,7 +40,6 @@ public class Ventana extends JFrame implements Runnable {
         inicializarPanelDatos();
         inicializarTabla();
         
-        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         hilo.start();
@@ -56,6 +55,7 @@ public class Ventana extends JFrame implements Runnable {
         panelDatos = new JPanel();
         panelTabla = new JPanel();
         panelGrafica = new JPanel();
+     
 
         actualizarTamanioPaneles();
 
@@ -66,6 +66,7 @@ public class Ventana extends JFrame implements Runnable {
         add(panelDatos);
         add(panelTabla);
         add(panelGrafica);
+        
 
     }
 
@@ -76,6 +77,7 @@ public class Ventana extends JFrame implements Runnable {
         panelTabla.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight() / 2);
 
         panelGrafica.setBounds(0, getHeight() / 2, getWidth(), getHeight() / 2);
+
     }
     
     private JLabel jlProceso;
@@ -137,6 +139,7 @@ public class Ventana extends JFrame implements Runnable {
     public void run() {
         while (true) {
              actualizarTamanioPaneles();
+             //inicializarPanelGrafico();
              
         }
     }
