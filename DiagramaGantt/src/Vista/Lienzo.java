@@ -17,13 +17,13 @@ public class Lienzo extends Canvas{
 
     public Lienzo() {
         setBackground(Color.cyan);
-        //setSize(8000, 6000);
+        setSize(9000, 7000);
     }
     
     @Override
     public void paint(Graphics g){
         g.setColor(Color.red);
-        g.fillRect(10, 10, 800, 600);
+        g.fillRect(10, 10, 8000, 6000);
         
     }
     

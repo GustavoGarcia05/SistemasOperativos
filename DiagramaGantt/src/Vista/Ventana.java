@@ -9,6 +9,7 @@ import Controlador.Control;
 import Modelo.ModeloTabla;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.ScrollPane;
 import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,6 +41,7 @@ public class Ventana extends JFrame implements Runnable {
         inicializarPanelDatos();
         inicializarTabla();
         
+        inicializarPanelGrafico();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         hilo.start();
@@ -47,14 +49,14 @@ public class Ventana extends JFrame implements Runnable {
 
     private JPanel panelTabla;
     private JPanel panelDatos;
-    private JPanel panelGrafica;
+    private ScrollPane panelGrafica;
 
     private void inicializarPaneles() {
 
 
         panelDatos = new JPanel();
         panelTabla = new JPanel();
-        panelGrafica = new JPanel();
+        panelGrafica = new ScrollPane();
      
 
         actualizarTamanioPaneles();
@@ -120,6 +122,13 @@ public class Ventana extends JFrame implements Runnable {
         JScrollPane scroll= new JScrollPane(tabla);
         panelTabla.add(scroll);
     }
+    
+    
+    private void inicializarPanelGrafico(){
+
+        panelGrafica.add(new Lienzo());
+        
+    }
    
     public ModeloTabla obtenerModeloTabla(){
         return (ModeloTabla) tabla.getModel();
@@ -139,7 +148,7 @@ public class Ventana extends JFrame implements Runnable {
     public void run() {
         while (true) {
              actualizarTamanioPaneles();
-             //inicializarPanelGrafico();
+             
              
         }
     }
