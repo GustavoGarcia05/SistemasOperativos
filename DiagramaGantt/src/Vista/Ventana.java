@@ -78,7 +78,8 @@ public class Ventana extends JFrame implements Runnable {
         
         panelTabla.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight() / 2);
 
-        panelGrafica.setBounds(0, getHeight() / 2, getWidth(), getHeight() / 2);
+        panelGrafica.setBounds(0, getHeight() / 2, getWidth()-20, getHeight() / 2-40);
+        //panelGrafica.setLocation(0, getHeight() / 2);
 
     }
     

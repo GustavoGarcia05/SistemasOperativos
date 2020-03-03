@@ -1,6 +1,7 @@
   
 
 import Vista.Ventana;
+import Vista.VentanaPrueba;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,6 +20,7 @@ public class Launcher {
      */
     public static void main(String[] args) {
         new Ventana();
+        //new VentanaPrueba();
     }
     
 }
