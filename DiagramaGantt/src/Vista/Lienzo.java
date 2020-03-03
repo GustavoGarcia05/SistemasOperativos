@@ -17,7 +17,7 @@ public class Lienzo extends Canvas{
 
     public Lienzo() {
         setBackground(Color.cyan);
-        setSize(9000, 7000);
+        //setSize(9000, 7000);
     }
     
     @Override
@@ -27,5 +27,8 @@ public class Lienzo extends Canvas{
         
     }
     
+    public void actualizarTamanio(){
+        
+    }
     
 }

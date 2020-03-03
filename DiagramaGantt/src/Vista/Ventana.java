@@ -124,10 +124,11 @@ public class Ventana extends JFrame implements Runnable {
         panelTabla.add(scroll);
     }
     
+    private Lienzo diagramaGantt;
     
     private void inicializarPanelGrafico(){
-
-        panelGrafica.add(new Lienzo());
+        diagramaGantt = new Lienzo();
+        panelGrafica.add(diagramaGantt);
         
     }
    

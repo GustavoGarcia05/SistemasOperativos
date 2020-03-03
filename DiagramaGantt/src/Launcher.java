@@ -1,7 +1,6 @@
   
 
 import Vista.Ventana;
-import Vista.VentanaPrueba;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
