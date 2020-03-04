@@ -6,6 +6,7 @@
 package Vista;
 
 import Controlador.Control;
+import Logica.Cola;
 import Modelo.ModeloTabla;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -40,11 +41,11 @@ public class Ventana extends JFrame implements Runnable {
         inicializarPaneles();
         inicializarPanelDatos();
         inicializarTabla();
-        
-        inicializarPanelGrafico();
+
+        //inicializarPanelGrafico();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        hilo.start();
+        //hilo.start();
     }
 
     private JPanel panelTabla;
@@ -53,11 +54,9 @@ public class Ventana extends JFrame implements Runnable {
 
     private void inicializarPaneles() {
 
-
         panelDatos = new JPanel();
         panelTabla = new JPanel();
         panelGrafica = new ScrollPane();
-     
 
         actualizarTamanioPaneles();
 
@@ -68,79 +67,84 @@ public class Ventana extends JFrame implements Runnable {
         add(panelDatos);
         add(panelTabla);
         add(panelGrafica);
-        
 
     }
 
     private void actualizarTamanioPaneles() {
 
         panelDatos.setBounds(0, 0, getWidth() / 2, getHeight() / 2);
-        
+
         panelTabla.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight() / 2);
 
-        panelGrafica.setBounds(0, getHeight() / 2, getWidth()-20, getHeight() / 2-40);
-        //panelGrafica.setLocation(0, getHeight() / 2);
+        panelGrafica.setBounds(0, getHeight() / 2, getWidth() - 20, getHeight() / 2 - 40);
 
     }
-    
+
     private JLabel jlProceso;
-    private JLabel jlEspera;
+    private JLabel jlLlegada;
     private JLabel jlRafaga;
-    
+
     private JTextField jtfProceso;
     private JTextField jtfEspera;
     private JTextField jtfRafaga;
-    
+
     private JButton btnRegistrar;
-    
-    private void inicializarPanelDatos(){
-        
+
+    private void inicializarPanelDatos() {
+
         jlProceso = new JLabel("Proceso:");
-        jlEspera = new JLabel("T. Espera:");
+        jlLlegada = new JLabel("T. Llegada:");
         jlRafaga = new JLabel("Rafaga:");
-        
+
         jtfProceso = new JTextField(10);
         jtfEspera = new JTextField(10);
         jtfRafaga = new JTextField(10);
-        
+
         panelDatos.add(jlProceso);
         panelDatos.add(jtfProceso);
-        panelDatos.add(jlEspera);
+        panelDatos.add(jlLlegada);
         panelDatos.add(jtfEspera);
         panelDatos.add(jlRafaga);
         panelDatos.add(jtfRafaga);
-        
+
         btnRegistrar = new JButton("Registrar");
         btnRegistrar.addActionListener(c);
-        
+
         panelDatos.add(btnRegistrar);
     }
-    
+
     private JTable tabla;
-    
-    private void inicializarTabla(){
+    private JButton btnGraficar;
+
+    private void inicializarTabla() {
         tabla = new JTable(new ModeloTabla());
-        JScrollPane scroll= new JScrollPane(tabla);
+        JScrollPane scroll = new JScrollPane(tabla);
+
+        btnGraficar = new JButton("Graficar");
+        btnGraficar.addActionListener(c);
+
         panelTabla.add(scroll);
+        panelTabla.add(btnGraficar);
     }
-    
+
     private Lienzo diagramaGantt;
-    
-    private void inicializarPanelGrafico(){
-        diagramaGantt = new Lienzo();
+
+    public void inicializarPanelGrafico(Cola c) {
+        diagramaGantt = new Lienzo(c);
         panelGrafica.add(diagramaGantt);
-        
+
     }
-   
-    public ModeloTabla obtenerModeloTabla(){
+
+    public ModeloTabla obtenerModeloTabla() {
         return (ModeloTabla) tabla.getModel();
     }
+
     private Dimension dimensionPantalla() {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         return d;
     }
-    
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         jtfProceso.setText("");
         jtfRafaga.setText("");
         jtfEspera.setText("");
@@ -148,10 +152,16 @@ public class Ventana extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-             actualizarTamanioPaneles();
-             
-             
+
+        try {
+            //hilo.sleep(100*60);
+            while (true) {
+                actualizarTamanioPaneles();
+            }
+            
+        } catch (Exception e) {
+            System.out.println("El error es: "+e.getMessage());
+            System.out.println("El error esta: "+e.getLocalizedMessage());
         }
     }
 
@@ -171,6 +181,8 @@ public class Ventana extends JFrame implements Runnable {
         return btnRegistrar;
     }
 
+    public JButton getBtnGraficar() {
+        return btnGraficar;
+    }
 
-    
 }

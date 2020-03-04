@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Logica.Cola;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,22 +14,26 @@ import java.awt.Graphics;
  *
  * @author estudiantes
  */
-public class Lienzo extends Canvas{
+public class Lienzo extends Canvas {
+    
+    private Cola co;
+    public Lienzo(Cola co) {
+        this.co=co;
+    }
 
-    public Lienzo() {
-        setBackground(Color.cyan);
-        //setSize(9000, 7000);
-    }
-    
+
     @Override
-    public void paint(Graphics g){
-        g.setColor(Color.red);
-        g.fillRect(10, 10, 8000, 6000);
-        
+    public void paint(Graphics g) {
+       if(co.estaVacia()){
+           g.setColor(Color.red);
+           g.drawRect(10, 10, 100, 100);
+       }else{
+           setSize(co.tamanio()*100, co.obtenerUltimo().tFinal);
+       }
     }
     
-    public void actualizarTamanio(){
+    public void actualizarTamanio() {
         
     }
-    
+
 }

@@ -39,6 +39,11 @@ public class Control implements ActionListener{
            v.limpiarCampos();
 
        }
+       
+       if(e.getSource()==v.getBtnGraficar()){
+           //v.inicializarPanelGrafico(gestor.getProcesos());
+           gestor.ordenarPorTllegada();
+       }
     }
   
     

@@ -5,6 +5,8 @@
  */
 package Logica;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Gustavo
@@ -39,7 +41,49 @@ public class Cola {
         }
 
     }
+public void ordenarBurbuja() {
+        if (!this.estaVacia()) {
 
+            Nodo[] sinOrdenar = new Nodo[tamanio()];
+            Nodo aux = obtenerCabeza();
+            int iterador = 0;
+            while (aux != null) {
+                sinOrdenar[iterador] = aux;
+                aux = aux.siguiente;
+                iterador++;
+            }
+            //ordenado por burbuja
+
+            for (int i = 0; i < (sinOrdenar.length-1); i++) {
+                for (int j = 0; j < (sinOrdenar.length-1); j++) {
+                    if (sinOrdenar[j].tLlegada > sinOrdenar[j + 1].tLlegada) {
+                        aux = (Nodo) sinOrdenar[j];
+                        sinOrdenar[j] = sinOrdenar[j + 1];
+                        sinOrdenar[j + 1] = aux;
+                    }
+                }
+
+            }
+
+            Cola ordenada = new Cola();
+
+            for (int i = 0; i < sinOrdenar.length; i++) {
+                ordenada.aniadir( sinOrdenar[i].nombre, sinOrdenar[i].tLlegada, sinOrdenar[i].tRafaga);
+            }
+
+            
+            this.cabecera=ordenada.cabecera;
+            aux=obtenerCabeza();
+            while(aux!=null){
+                System.out.println("Nombre: "+aux.nombre+" T. llegada: "+aux.tLlegada);
+                aux=aux.siguiente;
+            }
+            
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "La fila esta vacia");
+        }
+    }
     public Nodo obtenerCabeza() {
         if (cabecera == null) {
             return null;

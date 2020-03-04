@@ -6,37 +6,41 @@
 package Modelo;
 
 import Logica.Cola;
+import Logica.Nodo;
 import Vista.Ventana;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Gustavo
  */
 public class GestorProcesos {
+
     private Cola procesos;
 
     public GestorProcesos() {
         procesos = new Cola();
     }
-    
-    public void calcularTEspera(){
+
+    public void calcularTEspera() {
         int espera;
-        
+
     }
-    public void agregarProceso(Ventana v){
+
+    public void agregarProceso(Ventana v) {
         String nombre = v.getJtfProceso().getText();
-        int llegada = Integer.parseInt( v.getJtfEspera().getText());
-        int rafaga = Integer.parseInt( v.getJtfRafaga().getText());
-        
+        int llegada = Integer.parseInt(v.getJtfEspera().getText());
+        int rafaga = Integer.parseInt(v.getJtfRafaga().getText());
+
         procesos.aniadir(nombre, llegada, rafaga);
     }
-    
-    
+
+    public void ordenarPorTllegada() {
+       procesos.ordenarBurbuja();
+    }
 
     public Cola getProcesos() {
         return procesos;
     }
-    
-    
-    
+
 }
