@@ -33,19 +33,19 @@ public class Ventana extends JFrame implements Runnable {
         c = new Control(this);
         hilo = new Thread(this, "Paneles");
 
-        setExtendedState(MAXIMIZED_BOTH);
-        setSize(dimensionPantalla().width, dimensionPantalla().height);
+        //setExtendedState(MAXIMIZED_BOTH);
+        setSize(dimensionPantalla().width-40, dimensionPantalla().height-40);
         setLocationRelativeTo(null);
         setLayout(null);
 
         inicializarPaneles();
         inicializarPanelDatos();
-        inicializarTabla();
-
-        //inicializarPanelGrafico();
+        inicializarPanelTabla();
+        inicializarPanelGrafico();
+        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        //hilo.start();
+        hilo.start();
     }
 
     private JPanel panelTabla;
@@ -58,11 +58,11 @@ public class Ventana extends JFrame implements Runnable {
         panelTabla = new JPanel();
         panelGrafica = new ScrollPane();
 
-        actualizarTamanioPaneles();
 
         panelDatos.setBackground(Color.GRAY);
         panelTabla.setBackground(Color.darkGray);
         panelGrafica.setBackground(Color.lightGray);
+        
 
         add(panelDatos);
         add(panelTabla);
@@ -89,7 +89,9 @@ public class Ventana extends JFrame implements Runnable {
     private JTextField jtfRafaga;
 
     private JButton btnRegistrar;
-
+    
+    private JTable tablaRegistros;
+    
     private void inicializarPanelDatos() {
 
         jlProceso = new JLabel("Proceso:");
@@ -108,15 +110,21 @@ public class Ventana extends JFrame implements Runnable {
         panelDatos.add(jtfRafaga);
 
         btnRegistrar = new JButton("Registrar");
-        btnRegistrar.addActionListener(c);
+        btnRegistrar.addActionListener(c);        
 
         panelDatos.add(btnRegistrar);
+        
+        tablaRegistros = new JTable(new ModeloTabla());
+        JScrollPane scroll = new JScrollPane(tablaRegistros);
+        panelDatos.add(scroll);
+        
+
     }
 
     private JTable tabla;
     private JButton btnGraficar;
 
-    private void inicializarTabla() {
+    private void inicializarPanelTabla() {
         tabla = new JTable(new ModeloTabla());
         JScrollPane scroll = new JScrollPane(tabla);
 
@@ -129,14 +137,21 @@ public class Ventana extends JFrame implements Runnable {
 
     private Lienzo diagramaGantt;
 
-    public void inicializarPanelGrafico(Cola c) {
-        diagramaGantt = new Lienzo(c);
+    public void inicializarPanelGrafico() {
+        diagramaGantt = new Lienzo();
         panelGrafica.add(diagramaGantt);
 
     }
 
+    public Lienzo getDiagramaGantt() {
+        return diagramaGantt;
+    }
+    
     public ModeloTabla obtenerModeloTabla() {
         return (ModeloTabla) tabla.getModel();
+    }
+    public ModeloTabla obtenerModeloTablaRegistro() {
+        return (ModeloTabla) tablaRegistros.getModel();
     }
 
     private Dimension dimensionPantalla() {

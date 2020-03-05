@@ -9,31 +9,30 @@ import Logica.Cola;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author estudiantes
  */
 public class Lienzo extends Canvas {
-    
-    private Cola co;
-    public Lienzo(Cola co) {
-        this.co=co;
+    private int x=0,y=0;
+    public Lienzo() {
+        setBackground(new Color(0,114,46));
+        System.out.println("aqui llega");
     }
 
 
     @Override
     public void paint(Graphics g) {
-       if(co.estaVacia()){
-           g.setColor(Color.red);
-           g.drawRect(10, 10, 100, 100);
-       }else{
-           setSize(co.tamanio()*100, co.obtenerUltimo().tFinal);
-       }
+        g.fillOval(x, y, 100, 100);
     }
     
-    public void actualizarTamanio() {
+    public void actualizarInformacion(int x, int y) {
+        this.x=x;
+        this.y=y;
         
+        System.out.println("X es: "+x+" Y es : "+y);
     }
 
 }

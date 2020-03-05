@@ -23,13 +23,18 @@ public class ModeloTabla extends DefaultTableModel {
 
     }
 
-    public void agregarFila(Nodo n) {
+    public void agregarFilas(Nodo n) {
 
         while (n != null) {
             String[] datos = {n.nombre, n.tLlegada + "", n.tRafaga + "", n.tComienzo + "", n.tFinal + "", n.tRetorno + "", n.tEspera + ""};
             addRow(datos);
-            n=n.siguiente;
+            n = n.siguiente;
         }
+    }
+
+    public void agregarFila(Nodo n) {
+        String[] datos = {n.nombre, n.tLlegada + "", n.tRafaga + "", n.tComienzo + "", n.tFinal + "", n.tRetorno + "", n.tEspera + ""};
+        addRow(datos);
 
     }
 

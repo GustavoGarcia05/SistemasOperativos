@@ -71,13 +71,17 @@ public class GestorProcesos {
     }
     public void agregarProceso(Ventana v) {
         if(v.getJtfProceso().getText().equals("") ||v.getJtfEspera().equals("") || v.getJtfRafaga().equals("")){
-            JOptionPane.showMessageDialog(v, " Se han dejado campos sin rellenar");
-        }else{
+            JOptionPane.showMessageDialog(v, " Se han dejado campos sin llenar");
+        }else {
+            
         String nombre = v.getJtfProceso().getText();
         int llegada = Integer.parseInt(v.getJtfEspera().getText());
         int rafaga = Integer.parseInt(v.getJtfRafaga().getText());
-
+        
+        Nodo aux = new Nodo(nombre, llegada, rafaga);
+        v.obtenerModeloTablaRegistro().agregarFila(aux);
         procesos.aniadir(nombre, llegada, rafaga);
+        
         }
     }
 
