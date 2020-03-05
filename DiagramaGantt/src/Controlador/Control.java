@@ -34,15 +34,14 @@ public class Control implements ActionListener{
        if(e.getSource()==v.getBtnRegistrar()){
            
            gestor.agregarProceso(v);
-           Nodo aAgregar =gestor.getProcesos().obtenerUltimo();
-           v.obtenerModeloTabla().agregarFila(aAgregar);
            v.limpiarCampos();
 
        }
        
        if(e.getSource()==v.getBtnGraficar()){
            //v.inicializarPanelGrafico(gestor.getProcesos());
-           gestor.ordenarPorTllegada();
+           gestor.realizarCalculos();
+           v.obtenerModeloTabla().agregarFila(gestor.getProcesos().obtenerCabeza());
        }
     }
   

@@ -153,16 +153,11 @@ public class Ventana extends JFrame implements Runnable {
     @Override
     public void run() {
 
-        try {
-            //hilo.sleep(100*60);
             while (true) {
                 actualizarTamanioPaneles();
-            }
+
             
-        } catch (Exception e) {
-            System.out.println("El error es: "+e.getMessage());
-            System.out.println("El error esta: "+e.getLocalizedMessage());
-        }
+            }
     }
 
     public JTextField getJtfProceso() {

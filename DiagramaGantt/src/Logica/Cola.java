@@ -73,15 +73,9 @@ public void ordenarBurbuja() {
 
             
             this.cabecera=ordenada.cabecera;
-            aux=obtenerCabeza();
-            while(aux!=null){
-                System.out.println("Nombre: "+aux.nombre+" T. llegada: "+aux.tLlegada);
-                aux=aux.siguiente;
-            }
-            
             
         } else {
-            JOptionPane.showMessageDialog(null, "La fila esta vacia");
+            JOptionPane.showMessageDialog(null, "No existen procesos");
         }
     }
     public Nodo obtenerCabeza() {

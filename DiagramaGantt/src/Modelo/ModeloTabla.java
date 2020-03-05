@@ -1,4 +1,3 @@
-  
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,12 +21,16 @@ public class ModeloTabla extends DefaultTableModel {
             addColumn(columnas[i]);
         }
 
-
     }
-    
-    public void agregarFila(Nodo n){
-        String[] datos= {n.nombre, n.tLlegada+"",n.tRafaga+"",n.tComienzo+"",n.tFinal+"",n.tRetorno+"",n.tEspera+""};
-        addRow(datos);
+
+    public void agregarFila(Nodo n) {
+
+        while (n != null) {
+            String[] datos = {n.nombre, n.tLlegada + "", n.tRafaga + "", n.tComienzo + "", n.tFinal + "", n.tRetorno + "", n.tEspera + ""};
+            addRow(datos);
+            n=n.siguiente;
+        }
+
     }
 
 }
