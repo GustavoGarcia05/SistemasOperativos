@@ -9,30 +9,47 @@ import Logica.Cola;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author estudiantes
  */
-public class Lienzo extends Canvas {
-    private int x=0,y=0;
+public class Lienzo extends Canvas implements Runnable{
+    private int x,y;
+    private Thread hilo;
     public Lienzo() {
         setBackground(new Color(0,114,46));
-        System.out.println("aqui llega");
+        x=y=0;
+        hilo= new Thread(this);
+        hilo.start();
     }
 
 
     @Override
     public void paint(Graphics g) {
+        if(g==null){
+            
+        }else{
         g.fillOval(x, y, 100, 100);
+            
+        }
+    }
+
+    @Override
+    public void run() {
+        while(true){
+            x+=1;
+            paint(this.getGraphics());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Lienzo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
-    public void actualizarInformacion(int x, int y) {
-        this.x=x;
-        this.y=y;
-        
-        System.out.println("X es: "+x+" Y es : "+y);
-    }
 
 }

@@ -41,7 +41,6 @@ public class Ventana extends JFrame implements Runnable {
         inicializarPaneles();
         inicializarPanelDatos();
         inicializarPanelTabla();
-        inicializarPanelGrafico();
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -134,18 +133,7 @@ public class Ventana extends JFrame implements Runnable {
         panelTabla.add(scroll);
         panelTabla.add(btnGraficar);
     }
-
-    private Lienzo diagramaGantt;
-
-    public void inicializarPanelGrafico() {
-        diagramaGantt = new Lienzo();
-        panelGrafica.add(diagramaGantt);
-
-    }
-
-    public Lienzo getDiagramaGantt() {
-        return diagramaGantt;
-    }
+    
     
     public ModeloTabla obtenerModeloTabla() {
         return (ModeloTabla) tabla.getModel();
@@ -165,6 +153,10 @@ public class Ventana extends JFrame implements Runnable {
         jtfEspera.setText("");
     }
 
+    public ScrollPane getPanelGrafica() {
+        return panelGrafica;
+    }
+    
     @Override
     public void run() {
 
