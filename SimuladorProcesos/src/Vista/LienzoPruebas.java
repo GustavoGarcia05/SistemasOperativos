@@ -16,13 +16,13 @@ import java.util.logging.Logger;
  *
  * @author Gustavo
  */
-public class Lienzo extends Canvas implements Runnable {
+public class LienzoPruebas extends Canvas implements Runnable {
 
     private int x, y, unidadPatron, ancho, alto;
     private Thread hilo;
     private Ventana v;
 
-    public Lienzo(Ventana v) {
+    public LienzoPruebas(Ventana v) {
         setBackground(Color.gray);
         setSize(2400, 1900);
         x = 0;
@@ -42,17 +42,17 @@ public class Lienzo extends Canvas implements Runnable {
                 g.drawString(" " + i / unidadPatron, i, 10);
             }
             g.fillRect(x - unidadPatron, y, unidadPatron, unidadPatron);
-            
+
         }
 
     }
 
     private void actualizar(Nodo aux) {
-       
-        if (aux != null) {
+        if (x < aux.tFinal * unidadPatron) {
+            System.out.println("nomb: " + aux.nombre+" x: "+x+" Tfinal:"+aux.tFinal * unidadPatron);
             x += unidadPatron;
-            
         }
+
 
     }
 
@@ -67,33 +67,24 @@ public class Lienzo extends Canvas implements Runnable {
     public void continuar() {
         hilo.resume();
     }
-private Nodo aux;
+
     @Override
     public void run() {
         Nodo aux = v.getC().getM().getProcesos().obtenerCabeza();
-        Nodo auxUltimo = v.getC().getM().getProcesos().obtenerUltimo();
-        int contador=aux.tRafaga;
-        int i=0;
-        while (true) {
-            if (getGraphics() != null) {
-                System.out.println("nombre: " + aux.nombre + "x: " + x + "t final:" + (aux.tRafaga * unidadPatron + aux.tLlegada * unidadPatron + aux.tComienzo * unidadPatron));
-
-                if (x == (aux.tRafaga * unidadPatron + aux.tLlegada * unidadPatron + aux.tComienzo * unidadPatron)) {
-                    System.out.println("nom: " + aux.nombre + " x: " + x + "t final:" + (aux.tRafaga * unidadPatron + aux.tLlegada * unidadPatron + aux.tComienzo * unidadPatron));
-                    x=x-unidadPatron;
-                    y += unidadPatron;
-                    aux = aux.siguiente;
-                }
-                
-                actualizar(aux);
-                paint(getGraphics());
+        while (aux!=null) {
+            actualizar(aux);
+            if (x == aux.tFinal * unidadPatron) {
+                aux = aux.siguiente;
+                y += unidadPatron;
             }
+            paint(getGraphics());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Lienzo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LienzoPruebas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }
 
 }

@@ -120,10 +120,12 @@ public class Ventana extends JFrame {
         
     }
     
-    private Lienzo pintura;
+   // private Lienzo pintura;
+    private LienzoPruebas pintura;
     
     public void initLienzo(){
-        pintura= new Lienzo(this);
+        //pintura= new Lienzo(this);
+        pintura= new LienzoPruebas(this);
         panelCentral.add(pintura);
         
     }
@@ -142,8 +144,12 @@ public class Ventana extends JFrame {
     public JButton getContinuar() {
         return continuar;
     }
-
+/*
     public Lienzo getPintura() {
+        return pintura;
+    }
+*/
+    public LienzoPruebas getPintura() {
         return pintura;
     }
 
