@@ -25,7 +25,7 @@ public class Lienzo extends Canvas implements Runnable {
     public Lienzo(Ventana v) {
         setBackground(Color.gray);
         setSize(2400, 1900);
-        x = 0;
+        x = 20;
         y = 20;
         unidadPatron = 20;
         this.v = v;
@@ -41,18 +41,18 @@ public class Lienzo extends Canvas implements Runnable {
                 g.drawLine(i, 0, i, getWidth());
                 g.drawString(" " + i / unidadPatron, i, 10);
             }
-
             g.fillRect(x - unidadPatron, y, unidadPatron, unidadPatron);
-
+            
         }
 
     }
 
     private void actualizar(Nodo aux) {
+       
         if (aux != null) {
             x += unidadPatron;
+            
         }
-        //System.out.println("nombre: "+aux.nombre+ "x: "+x +"t final:"+(aux.tRafaga * unidadPatron + aux.tLlegada * 20));
 
     }
 
@@ -67,20 +67,23 @@ public class Lienzo extends Canvas implements Runnable {
     public void continuar() {
         hilo.resume();
     }
-
+private Nodo aux;
     @Override
     public void run() {
         Nodo aux = v.getC().getM().getProcesos().obtenerCabeza();
         Nodo auxUltimo = v.getC().getM().getProcesos().obtenerUltimo();
+        int contador=aux.tRafaga;
+        int i=0;
         while (true) {
             if (getGraphics() != null) {
                 System.out.println("nombre: " + aux.nombre + "x: " + x + "t final:" + (aux.tRafaga * unidadPatron + aux.tLlegada * unidadPatron + aux.tComienzo * unidadPatron));
 
                 if (x == (aux.tRafaga * unidadPatron + aux.tLlegada * unidadPatron + aux.tComienzo * unidadPatron)) {
+                    System.out.println("nombre: " + aux.nombre + " x: " + x + "t final:" + (aux.tRafaga * unidadPatron + aux.tLlegada * unidadPatron + aux.tComienzo * unidadPatron));
                     y += unidadPatron;
                     aux = aux.siguiente;
                 }
-
+                
                 actualizar(aux);
                 paint(getGraphics());
             }
