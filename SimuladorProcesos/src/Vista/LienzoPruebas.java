@@ -27,9 +27,9 @@ public class LienzoPruebas extends Canvas implements Runnable {
         setSize(2400, 1900);
         x = 0;
         y = 20;
-        unidadPatron = 20;
+        unidadPatron = 50;
         this.v = v;
-        
+
         hilo = new Thread(this);
     }
 
@@ -49,13 +49,15 @@ public class LienzoPruebas extends Canvas implements Runnable {
     }
 
     private void actualizar(Nodo aux) {
+        if (aux == null) {
+            hilo.stop();
+            return;
+        }
         if (x < aux.tFinal * unidadPatron) {
-            System.out.println("final : "+aux.tFinal*unidadPatron+" x : "+x);
-            System.out.println("nomb: " + aux.nombre+" x: "+x+" Tfinal:"+aux.tFinal * unidadPatron);
+            System.out.println("final : " + aux.tFinal * unidadPatron + " x : " + x);
+            System.out.println("nomb: " + aux.nombre + " x: " + x + " Tfinal:" + aux.tFinal * unidadPatron);
             x += unidadPatron;
         }
-
-
 
     }
 
@@ -74,7 +76,7 @@ public class LienzoPruebas extends Canvas implements Runnable {
     @Override
     public void run() {
         Nodo aux = v.getC().getM().getProcesos().obtenerCabeza();
-        while (aux!=null) {
+        while (aux != null) {
             if (x == aux.tFinal * unidadPatron) {
                 aux = aux.siguiente;
                 y += unidadPatron;
@@ -86,8 +88,9 @@ public class LienzoPruebas extends Canvas implements Runnable {
             } catch (InterruptedException ex) {
                 Logger.getLogger(LienzoPruebas.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
-        
+
     }
 
 }
