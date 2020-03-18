@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Gustavo
  */
-public class Lienzo extends Canvas implements Runnable {
+public class Lienzo1 extends Canvas implements Runnable {
 
     private int x, y, unidadPatron, ancho, alto;
     private Thread hilo;
@@ -26,9 +26,10 @@ public class Lienzo extends Canvas implements Runnable {
     private int numMaxColor = 255;
     private int aumentoColor = 15;
 
-    public Lienzo(Ventana v) {
+    public Lienzo1(Ventana v) {
         setSize(2400, 1900);
-        setBackground(Color.gray);
+
+        imagen = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 
         x = 0;
         y = 20;
@@ -39,15 +40,22 @@ public class Lienzo extends Canvas implements Runnable {
 
     @Override
     public void paint(Graphics g) {
-        if (getGraphics() != null) {
-            g.setColor(new Color(255, 255, 255));
+        /*if (getGraphics() != null) {
+            imagen.getGraphics().setColor(new Color(255, 255, 255));
             for (int i = 10; i < getWidth(); i += unidadPatron) {
-                g.drawLine(i, 0, i, getWidth());
-                g.drawString(" " + i / unidadPatron, i, 10);
-
+                imagen.getGraphics().drawLine(i, 0, i, getWidth());
+                imagen.getGraphics().drawString(" " + i / unidadPatron, i, 10);
+                if (imagen != null) {
+                    g.drawImage(imagen, 0, 0, null);
+                }
             }
-        }
-
+        }*/
+        imagen.getGraphics().fillRect(0, 0, 100, 100);
+        imagen.getGraphics().setColor(Color.red);
+        imagen.getGraphics().fillRect(0, 0, 50,50);
+        g.drawImage(imagen, 0, 0, null);
+        repaint();
+        
     }
 
     private void actualizar(Nodo aux) {
@@ -65,7 +73,7 @@ public class Lienzo extends Canvas implements Runnable {
 
     public void dibujar(Graphics g) {
         if (getGraphics() != null) {
-            g.fillRect(x, y, unidadPatron, unidadPatron);
+            imagen.getGraphics().fillRect(x, y, unidadPatron, unidadPatron);
 
         }
     }
@@ -95,12 +103,12 @@ public class Lienzo extends Canvas implements Runnable {
     public void run() {
         Nodo aux = v.getC().getM().getProcesos().obtenerCabeza();
         Graphics g = getGraphics();
-
+        
         while (aux != null) {
             if (x == aux.tFinal * unidadPatron) {
                 aux = aux.siguiente;
                 y += unidadPatron;
-                g.setColor(cambiarColor());
+                imagen.getGraphics().setColor(cambiarColor());
             }
             actualizar(aux);
             dibujar(g);
@@ -108,7 +116,7 @@ public class Lienzo extends Canvas implements Runnable {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Lienzo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Lienzo1.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

@@ -6,13 +6,17 @@
 package Vista;
 
 import Controlador.Control;
+import Modelo.ModeloTabla;
 import static java.awt.BorderLayout.CENTER;
+import static java.awt.BorderLayout.WEST;
 import java.awt.GridLayout;
 import java.awt.ScrollPane;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.SpringLayout.NORTH;
 import static javax.swing.SpringLayout.SOUTH;
@@ -34,23 +38,27 @@ public class Ventana extends JFrame {
 
     private void establecerVentana() {
         setSize(800, 600);
+        //setExtendedState(MAXIMIZED_BOTH);
+        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initPSuperior();
         initPCentral();
         initPInferior();
+        initPanelIzquierdo();
         
+        //setResizable(false);
         setVisible(true);
     }
     
-    private JButton iniciar;
+    private JButton registrar;
     private JButton pausar;
     private JButton continuar;
     
     private void inicializarBotones(){
         
-        iniciar = new JButton("Iniciar");
-        iniciar.addActionListener(c);
-        panelInferior.add(iniciar);
+        registrar = new JButton("Registrar");
+        registrar.addActionListener(c);
+        panelInferior.add(registrar);
         
         pausar = new JButton("Pausar");
         pausar.addActionListener(c);
@@ -89,11 +97,11 @@ public class Ventana extends JFrame {
         nombre =new JLabel("Nombre: ");
         panelSuperior.add(nombre);
         
-        tRafaga =new JLabel("Tiempo de rafaga: ");
-        panelSuperior.add(tRafaga);
-        
         tLlegada =new JLabel("Tiempo de llegada: ");
         panelSuperior.add(tLlegada);
+        
+        tRafaga =new JLabel("Tiempo de rafaga: ");
+        panelSuperior.add(tRafaga);
     }
     private JTextField jtNombre;
     private JTextField jttRafaga;
@@ -104,11 +112,11 @@ public class Ventana extends JFrame {
         jtNombre = new JTextField();
         panelSuperior.add(jtNombre);
         
-        jttRafaga =new JTextField();
-        panelSuperior.add(jttRafaga);
-        
         jttLlegada =new JTextField();
         panelSuperior.add(jttLlegada);
+        
+        jttRafaga =new JTextField();
+        panelSuperior.add(jttRafaga);
     }
     
     private ScrollPane panelCentral;
@@ -121,20 +129,35 @@ public class Ventana extends JFrame {
     }
     
    // private Lienzo pintura;
-    private LienzoPruebas pintura;
+    private Lienzo pintura;
     
     public void initLienzo(){
         //pintura= new Lienzo(this);
-        pintura= new LienzoPruebas(this);
+        pintura= new Lienzo(this);
         panelCentral.add(pintura);
         
     }
+    private JTable tablaDatos;
+    private void initPanelIzquierdo(){
+        tablaDatos = new JTable(new ModeloTabla());
+        JScrollPane scroll = new JScrollPane(tablaDatos);
+        add(WEST,scroll);
+    }
     
+    public ModeloTabla  obtenerModeloTablaRegistro() {
+        return (ModeloTabla) tablaDatos.getModel();
+    }
+
+    public void limpiarCampos() {
+        jtNombre.setText("");
+        jttLlegada.setText("");
+        jttRafaga.setText("");
+    }
     
     // Obtener Elementos
 
-    public JButton getIniciar() {
-        return iniciar;
+    public JButton getRegistrar() {
+        return registrar;
     }
 
     public JButton getPausar() {
@@ -144,18 +167,32 @@ public class Ventana extends JFrame {
     public JButton getContinuar() {
         return continuar;
     }
-/*
+
     public Lienzo getPintura() {
-        return pintura;
-    }
-*/
-    public LienzoPruebas getPintura() {
         return pintura;
     }
 
     public Control getC() {
         return c;
     }
+
+    public JTextField getJtNombre() {
+        return jtNombre;
+    }
+
+    public JTextField getJttRafaga() {
+        return jttRafaga;
+    }
+
+    public JTextField getJttLlegada() {
+        return jttLlegada;
+    }
+
+    public JTable getTablaDatos() {
+        return tablaDatos;
+    }
+    
+    
     
     
 }

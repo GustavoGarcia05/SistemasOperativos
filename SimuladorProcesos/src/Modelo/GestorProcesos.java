@@ -9,6 +9,7 @@ import Controlador.Control;
 import Logica.Cola;
 import Logica.Nodo;
 import Vista.Ventana;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,12 +48,14 @@ public class GestorProcesos {
     }
 
     private void calcularTRetorno() {
+        
         Nodo actual = procesos.obtenerCabeza();
         while (actual != null) {
             actual.tRetorno = actual.tFinal - actual.tLlegada;
             actual = actual.siguiente;
 
         }
+        
     }
 
     private void calcularTEspera() {
@@ -71,13 +74,20 @@ public class GestorProcesos {
         calcularTEspera();
     }
 
-    public void agregarProceso(Ventana v) {
-        procesos.aniadir("E", 4, 2);
-        procesos.aniadir("D", 3, 5);
-        procesos.aniadir("C", 2, 4);
-        procesos.aniadir("B", 1, 4);
-        procesos.aniadir("A", 0, 8);
-
+public void agregarProceso(Ventana v) {
+        if(v.getJtNombre().getText().equals("") ||v.getJttRafaga().getText().equals("") || v.getJttLlegada().getText().equals("")){
+            JOptionPane.showMessageDialog(v, " Se han dejado campos sin llenar");
+        }else {
+            
+        String nombre = v.getJtNombre().getText();
+        int llegada = Integer.parseInt(v.getJttLlegada().getText());
+        int rafaga = Integer.parseInt(v.getJttRafaga().getText());
+        
+        Nodo aux = new Nodo(nombre, llegada, rafaga);
+        v.obtenerModeloTablaRegistro().agregarFila(aux);
+        procesos.aniadir(nombre, llegada, rafaga);
+        
+        }
     }
 
     public Cola getProcesos() {

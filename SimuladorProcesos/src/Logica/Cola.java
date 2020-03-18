@@ -47,6 +47,7 @@ public void ordenarBurbuja() {
             Nodo[] sinOrdenar = new Nodo[tamanio()];
             Nodo aux = obtenerCabeza();
             int iterador = 0;
+            
             while (aux != null) {
                 sinOrdenar[iterador] = aux;
                 aux = aux.siguiente;
@@ -70,8 +71,17 @@ public void ordenarBurbuja() {
             for (int i = 0; i < sinOrdenar.length; i++) {
                 ordenada.aniadir( sinOrdenar[i].nombre, sinOrdenar[i].tLlegada, sinOrdenar[i].tRafaga);
             }
-
             
+            if(ordenada.obtenerCabeza().tLlegada !=0){
+                System.out.println("aqui entra");
+                aux=ordenada.cabecera;
+                int ajuste=aux.tLlegada;
+                while(aux!=null){
+                    aux.tLlegada-=ajuste;
+                    aux=aux.siguiente;
+                }
+            }
+
             this.cabecera=ordenada.cabecera;
             
         } else {
