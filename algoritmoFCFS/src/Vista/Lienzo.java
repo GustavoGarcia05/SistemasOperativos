@@ -23,13 +23,13 @@ public class Lienzo extends Canvas implements Runnable {
     private int x, y, unidadPatron, ancho, alto;
     private Thread hilo;
     private Ventana v;
-    private int numMaxColor = 255;
-    private int aumentoColor = 15;
 
     public Lienzo(Ventana v) {
         setSize(2400, 1900);
         setBackground(Color.gray);
 
+        imagen = new BufferedImage(getWidth(), getHeight(), BufferedImage.TRANSLUCENT);
+        imagen.getGraphics().setColor(Color.red);
         x = 0;
         y = 20;
         unidadPatron = 20;
@@ -39,14 +39,13 @@ public class Lienzo extends Canvas implements Runnable {
 
     @Override
     public void paint(Graphics g) {
-        if (getGraphics() != null) {
-            g.setColor(new Color(255, 255, 255));
-            for (int i = 10; i < getWidth(); i += unidadPatron) {
-                g.drawLine(i, 0, i, getWidth());
-                g.drawString(" " + i / unidadPatron, i, 10);
 
-            }
+        for (int i = 10; i < getWidth(); i += unidadPatron) {
+            imagen.getGraphics().drawLine(i, 0, i, getWidth());
+            imagen.getGraphics().drawString(" " + i / unidadPatron, i, 10);
         }
+
+        g.drawImage(imagen, 0, 0, null);
 
     }
 
@@ -63,20 +62,13 @@ public class Lienzo extends Canvas implements Runnable {
 
     private BufferedImage imagen;
 
-    public void dibujar(Graphics g) {
-        if (getGraphics() != null) {
-            g.fillRect(x, y, unidadPatron, unidadPatron);
+    public void dibujar(Graphics g, Nodo aux) {
 
-        }
-    }
-    private int rojo = 100, verde = 100, azul = 100;
+        imagen.getGraphics().drawString(aux.nombre, 0, y + unidadPatron / 2 + 5);
+        imagen.getGraphics().fillRect(x, y, unidadPatron, unidadPatron);
 
-    private Color cambiarColor() {
-        rojo = (int) (Math.random() * 225);
-        verde = (int) (Math.random() * 225);
-        azul = (int) (Math.random() * 225);
+        g.drawImage(imagen, 0, 0,  null);
 
-        return new Color(rojo, verde, azul);
     }
 
     public void iniciar() {
@@ -100,10 +92,9 @@ public class Lienzo extends Canvas implements Runnable {
             if (x == aux.tFinal * unidadPatron) {
                 aux = aux.siguiente;
                 y += unidadPatron;
-                g.setColor(cambiarColor());
             }
             actualizar(aux);
-            dibujar(g);
+            dibujar(g, aux);
 
             try {
                 Thread.sleep(500);

@@ -78,14 +78,18 @@ public void agregarProceso(Ventana v) {
         if(v.getJtNombre().getText().equals("") ||v.getJttRafaga().getText().equals("") || v.getJttLlegada().getText().equals("")){
             JOptionPane.showMessageDialog(v, " Se han dejado campos sin llenar");
         }else {
-            
         String nombre = v.getJtNombre().getText();
-        int llegada = Integer.parseInt(v.getJttLlegada().getText());
-        int rafaga = Integer.parseInt(v.getJttRafaga().getText());
+            try {
+                
+                int llegada = Integer.parseInt(v.getJttLlegada().getText());
+                int rafaga = Integer.parseInt(v.getJttRafaga().getText());
+                Nodo aux = new Nodo(nombre, llegada, rafaga);
+                v.obtenerModeloTablaRegistro().agregarFila(aux);
+                procesos.aniadir(nombre, llegada, rafaga);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null , "Ha ingresado un tiempo que no es numerico");
+            }
         
-        Nodo aux = new Nodo(nombre, llegada, rafaga);
-        v.obtenerModeloTablaRegistro().agregarFila(aux);
-        procesos.aniadir(nombre, llegada, rafaga);
         
         }
     }

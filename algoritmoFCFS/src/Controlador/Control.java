@@ -31,11 +31,10 @@ public class Control implements ActionListener {
 
         if (e.getSource() == v.getRegistrar()) {
             m.agregarProceso(v);
-            //v.limpiarCampos();
+            v.limpiarCampos();
 
         }
-        if (e.getSource() == v.getPausar()) {
-            m.getProcesos().ordenarBurbuja();
+        if (e.getSource() == v.getGraficar()) {
             m.realizarCalculos();
             ModeloTabla tablaAUX = new ModeloTabla();
             tablaAUX.agregarFilas(m.getProcesos().obtenerCabeza());
@@ -43,8 +42,9 @@ public class Control implements ActionListener {
             v.getPintura().iniciar();
         }
         if (e.getSource() == v.getContinuar()) {
-            v.getPintura().continuar();
-            imprimirProcesos("realizar calculos");
+            v.dispose();
+            v=new Ventana();
+           
         }
     }
 

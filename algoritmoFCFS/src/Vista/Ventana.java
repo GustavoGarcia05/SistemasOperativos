@@ -38,7 +38,7 @@ public class Ventana extends JFrame {
 
     private void establecerVentana() {
         setSize(800, 600);
-        //setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(MAXIMIZED_BOTH);
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initPSuperior();
@@ -46,13 +46,12 @@ public class Ventana extends JFrame {
         initPInferior();
         initPanelIzquierdo();
         
-        //setResizable(false);
         setVisible(true);
     }
     
     private JButton registrar;
-    private JButton pausar;
-    private JButton continuar;
+    private JButton graficar;
+    private JButton limpiar;
     
     private void inicializarBotones(){
         
@@ -60,13 +59,13 @@ public class Ventana extends JFrame {
         registrar.addActionListener(c);
         panelInferior.add(registrar);
         
-        pausar = new JButton("Pausar");
-        pausar.addActionListener(c);
-        panelInferior.add(pausar);
+        graficar = new JButton("Graficar");
+        graficar.addActionListener(c);
+        panelInferior.add(graficar);
         
-        continuar = new JButton("continuar");
-        continuar.addActionListener(c);
-        panelInferior.add(continuar);
+        limpiar = new JButton("Limpiar");
+        limpiar.addActionListener(c);
+        panelInferior.add(limpiar);
     }
     
     private JPanel panelInferior;
@@ -128,12 +127,11 @@ public class Ventana extends JFrame {
         
     }
     
-   // private Lienzo pintura;
+
     private Lienzo pintura;
     
     public void initLienzo(){
-        //pintura= new Lienzo(this);
-        pintura= new Lienzo(this);
+        pintura= new Lienzo (this);
         panelCentral.add(pintura);
         
     }
@@ -160,12 +158,12 @@ public class Ventana extends JFrame {
         return registrar;
     }
 
-    public JButton getPausar() {
-        return pausar;
+    public JButton getGraficar() {
+        return graficar;
     }
 
     public JButton getContinuar() {
-        return continuar;
+        return limpiar;
     }
 
     public Lienzo getPintura() {

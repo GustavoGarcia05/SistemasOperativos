@@ -73,7 +73,6 @@ public void ordenarBurbuja() {
             }
             
             if(ordenada.obtenerCabeza().tLlegada !=0){
-                System.out.println("aqui entra");
                 aux=ordenada.cabecera;
                 int ajuste=aux.tLlegada;
                 while(aux!=null){
