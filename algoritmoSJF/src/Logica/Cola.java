@@ -41,13 +41,17 @@ public class Cola {
         }
 
     }
-public void ordenarBurbuja() {
+
+    private int ajuste;
+
+    public void ordenarBurbuja() {
         if (!this.estaVacia()) {
 
-            Nodo[] sinOrdenar = new Nodo[tamanio()];
-            Nodo aux = obtenerCabeza();
+            Nodo[] sinOrdenar = new Nodo[tamanio()-1];
+            Nodo cab = obtenerCabeza();
+            Nodo aux = obtenerCabeza().siguiente;
             int iterador = 0;
-            
+
             while (aux != null) {
                 sinOrdenar[iterador] = aux;
                 aux = aux.siguiente;
@@ -55,9 +59,9 @@ public void ordenarBurbuja() {
             }
             //ordenado por burbuja
 
-            for (int i = 0; i < (sinOrdenar.length-1); i++) {
-                for (int j = 0; j < (sinOrdenar.length-1); j++) {
-                    if (sinOrdenar[j].tLlegada > sinOrdenar[j + 1].tLlegada) {
+            for (int i = 0; i < (sinOrdenar.length - 1); i++) {
+                for (int j = 0; j < (sinOrdenar.length - 1); j++) {
+                    if (sinOrdenar[j].tRafaga > sinOrdenar[j + 1].tRafaga) {
                         aux = (Nodo) sinOrdenar[j];
                         sinOrdenar[j] = sinOrdenar[j + 1];
                         sinOrdenar[j + 1] = aux;
@@ -67,27 +71,27 @@ public void ordenarBurbuja() {
             }
 
             Cola ordenada = new Cola();
-
+            ordenada.aniadir(cab.nombre, cab.tLlegada, cab.tRafaga);
             for (int i = 0; i < sinOrdenar.length; i++) {
-                ordenada.aniadir( sinOrdenar[i].nombre, sinOrdenar[i].tLlegada, sinOrdenar[i].tRafaga);
+                ordenada.aniadir(sinOrdenar[i].nombre, sinOrdenar[i].tLlegada, sinOrdenar[i].tRafaga);
             }
-            
-            if(ordenada.obtenerCabeza().tLlegada !=0){
-                System.out.println("aqui entra");
-                aux=ordenada.cabecera;
-                int ajuste=aux.tLlegada;
-                while(aux!=null){
-                    aux.tLlegada-=ajuste;
-                    aux=aux.siguiente;
+
+            if (ordenada.obtenerCabeza().tLlegada != 0) {
+                aux = ordenada.cabecera;
+                ajuste = aux.tLlegada;
+                while (aux != null) {
+                    aux.tLlegada -= ajuste;
+                    aux = aux.siguiente;
                 }
             }
 
-            this.cabecera=ordenada.cabecera;
-            
+            this.cabecera = ordenada.cabecera;
+
         } else {
             JOptionPane.showMessageDialog(null, "No existen procesos");
         }
     }
+
     public Nodo obtenerCabeza() {
         if (cabecera == null) {
             return null;
@@ -95,25 +99,26 @@ public void ordenarBurbuja() {
             return cabecera;
         }
     }
-    
-    public Nodo obtenerUltimo(){
-        if(ultimo==null){
+
+    public Nodo obtenerUltimo() {
+        if (ultimo == null) {
             return null;
-        }else{
+        } else {
             return ultimo;
         }
     }
-    public int tamanio(){
-        if(estaVacia()){
+
+    public int tamanio() {
+        if (estaVacia()) {
             return 0;
-        }else{
-            int i=1;
-            
+        } else {
+            int i = 1;
+
             Nodo aux = cabecera;
-            
-            while(aux!=null && aux.siguiente!=null){
+
+            while (aux != null && aux.siguiente != null) {
                 i++;
-                aux=aux.siguiente;
+                aux = aux.siguiente;
             }
             return i;
         }
@@ -121,6 +126,10 @@ public void ordenarBurbuja() {
 
     public boolean estaVacia() {
         return cabecera == null;
+    }
+
+    public int getAjuste() {
+        return ajuste;
     }
 
 }
